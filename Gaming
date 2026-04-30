@@ -1,0 +1,82 @@
+# 🔱 HoKOS & LQM Editions 🔱
+**High-Performance Linux Distributions Optimized for Mobile Gaming & Professional Workflows.**
+
+---
+
+## 📖 Overview
+HoKOS (Honor of Kings OS) and LQM Edition are streamlined Linux configurations built on **Manjaro KDE Plasma**.  
+They are designed for:
+- Low-latency performance
+- GPU driver optimization (Intel, AMD, NVIDIA)
+- Custom gaming-oriented UI branding
+
+---
+
+## ✨ Key Features
+- **GPU Optimization:**
+  - Intel Iris Xe & ARC → `mesa`, `intel-media-driver`, `vulkan-intel`
+  - AMD Radeon → `mesa`, `vulkan-radeon`, `xf86-video-amdgpu`
+  - NVIDIA RTX → `nvidia`, `nvidia-utils`, `nvidia-settings`
+- **Mobile Integration:** Run Android apps with **Waydroid**.
+- **Custom UI Branding:**
+  - Power button replaced with **Honor of Kings logo**
+  - Cursor styled as **BlueStacks icon**
+  - Unlock animation inspired by **HyperOS**
+  - Taskbar styled like **Windows 7**, with HoK branding
+- **Boot Splash:** **ROG logo** at startup, followed by **HoK animation** before login.
+
+---
+
+## 🚀 Installation
+
+Save the following script as `install_hokos.sh` and run:
+
+```bash
+chmod +x install_hokos.sh
+./install_hokos.sh
+#!/bin/bash
+set -e
+
+echo "[INFO] Starting HoKOS/LQM installation..."
+
+# Update system
+sudo pacman -Syu --noconfirm
+
+# Detect GPU
+GPU=$(lspci | grep -E "VGA|3D")
+
+if [[ $GPU == *"Intel"* ]]; then
+    echo "[INFO] Intel/ARC GPU detected"
+    sudo pacman -S --noconfirm mesa intel-media-driver vulkan-intel
+elif [[ $GPU == *"AMD"* ]]; then
+    echo "[INFO] AMD/Radeon GPU detected"
+    sudo pacman -S --noconfirm mesa vulkan-radeon xf86-video-amdgpu
+elif [[ $GPU == *"NVIDIA"* ]]; then
+    echo "[INFO] NVIDIA/RTX GPU detected"
+    sudo pacman -S --noconfirm nvidia nvidia-utils nvidia-settings
+else
+    echo "[WARNING] Unknown GPU, installing mesa fallback"
+    sudo pacman -S --noconfirm mesa
+fi
+
+# Install Gamemode for gaming optimization
+sudo pacman -S --noconfirm gamemode
+
+# Install Plymouth and ROG boot splash
+sudo pacman -S --noconfirm plymouth
+git clone https://github.com/your-plymouth-theme.git
+cd your-plymouth-theme
+sudo ./install.sh -t rog -s 1080p
+sudo plymouth-set-default-theme -R rog
+cd ..
+
+# Cursor theme (BlueStacks)
+mkdir -p ~/.icons/BlueStacks/cursors
+cp -r cursors/* ~/.icons/BlueStacks/cursors/
+gsettings set org.gnome.desktop.interface cursor-theme "BlueStacks"
+
+# Launcher branding (Honor of Kings logo)
+cp hok_logo.png ~/hok_logo.png
+echo "[INFO] Set Application Launcher icon to ~/hok_logo.png manually in KDE settings."
+
+echo "[SUCCESS] HoKOS/LQM installation completed!"
