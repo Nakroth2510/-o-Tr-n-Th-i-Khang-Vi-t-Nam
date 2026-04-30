@@ -1,0 +1,61 @@
+# 🔱 HoKOS: ROG Edition 🔱
+**A High-Performance Operating System Optimized for Mobile Emulation & Professional Workflows.**
+
+![Edition](https://shields.io)
+![Architecture](https://shields.io)
+![Optimization](https://shields.io)
+
+## 📖 Overview
+**HoKOS ROG Edition** is a streamlined system configuration built on top of **Manjaro KDE Plasma**. It is engineered to provide a low-latency, resource-efficient environment for power users and mobile gamers. By leveraging native Linux kernel capabilities, HoKOS ensures maximum hardware longevity and peak performance.
+
+## ✨ Key Features
+- **Native Android Integration:** Powered by **Waydroid**, enabling Android applications to run with near-native performance without the overhead of traditional virtualization.
+- **Hardware Optimization:** Specifically tuned for **Intel Iris Xe Graphics** and 11th Gen Intel Core architectures to ensure stable frame rates.
+- **HyperOS Animation Framework:** Ultra-responsive UI transitions with optimized blur and physics-based window animations (0.5x speed scale).
+- **Streamlined UI:** A clean, productive layout featuring a custom **Honor of Kings** branding suite and specialized gaming cursors.
+- **Resource Management:** Aggressive background process optimization to ensure maximum available RAM for primary applications.
+
+## 🚀 Deployment Guide
+
+### Prerequisites
+- **Hardware:** Optimized for 11th Gen Intel mobile processors (e.g., i5-1135G7).
+- **Environment:** A clean installation of **Manjaro KDE Plasma**.
+- **Connectivity:** Active internet connection for dependency fetching.
+
+### Execution
+Launch your terminal (**Konsole**) and run the following command:
+
+```bash
+git clone https://github.com
+cd HoKOS
+chmod +x install_hokos_rog.sh
+./install_hokos_rog.sh
+```
+
+## 🛠 Post-Installation Setup
+1. **System Branding:** Right-click the Application Launcher -> `Configure` -> Set icon to `~/hok_logo.png`.
+2. **Input Aesthetics:** Navigate to `System Settings` -> `Cursors` -> Select the **ROG** or **Aero** theme.
+3. **Gaming:** Launch **Waydroid** to deploy high-fidelity mobile titles.
+
+## 📜 Credits
+- **Project Lead:** [Nakroth_251013](https://github.com)
+- **Upstream Projects:** [Manjaro Linux](https://manjaro.org), [Waydroid](https://waydro.id), [KDE Community](https://kde.org).
+# 7. ROG Boot Splash Screen (Plymouth)
+echo -e "${BLUE}[6/6] Installing ROG Boot Splash Screen...${NC}"
+
+# Cài đặt Plymouth (công cụ quản lý màn hình khởi động)
+sudo pacman -S plymouth --noconfirm
+
+# Tải theme ROG cho Plymouth từ cộng đồng
+git clone https://github.com
+cd grub2-themes
+# Cài đặt theme ROG (Yêu cầu quyền sudo)
+sudo ./install.sh -t rog -s 1080p
+
+# Thiết lập Plymouth mặc định là ROG
+sudo plymouth-set-default-theme -R rog
+
+log_success "ROG Boot Branding installed successfully."
+
+---
+*Disclaimer: HoKOS is an independent project and is not officially affiliated with ASUS, Apple, or Tencent.*
