@@ -1,0 +1,60 @@
+# Ultra-Gaming OS (Custom Resolution Edition)
+
+High-performance system configuration with **Manual Resolution Control**.
+Optimized for PC, Laptop, and Tablet environments at 165Hz.
+
+## Features
+- **Display Control**: Manual resolution switching via command-line or UI.
+- **Refresh Rate**: Forced 165Hz for maximum fluidity.
+- **Kernel**: Low-latency Gaming Kernel.
+- **UI**: Aero Glass with Custom Branding and High-Contrast Cursor.
+- **Audio**: Hardware Startup Chime & Legacy Shutdown SFX.
+
+## Pre-installed Games
+- HoK, PGR, Genshin, Honkai, Space Pinball.
+#!/bin/bash
+# Deployment Script with Custom Resolution Support
+# Targeted for Desktop & Tablet
+
+set -e
+
+# --- Visual & Branding ---
+sudo cp ./assets/branding_logo.svg /usr/share/plasma/look-and-feel/aero/contents/images/start.svg
+kwriteconfig6 --group "Mouse" --key "cursorTheme" "Enhanced_White"
+kwriteconfig6 --group "Mouse" --key "cursorSize" 48
+
+# --- Display & Refresh Rate (Force 165Hz) ---
+kwriteconfig6 --file kwinrc --group "Compositing" --key "MaxFPS" 165
+kwriteconfig6 --file kwinrc --group "Compositing" --key "RefreshRate" 165
+
+# --- [ NEW: RESOLUTION CUSTOMIZER ] ---
+# Creating a tool to manually set resolution
+sudo cat <<EOF > /usr/local/bin/set-res
+#!/bin/bash
+# Usage: set-res 1920 1080
+if [ -z "\$1" ] || [ -z "\$2" ]; then
+    echo "Usage: set-res [width] [height]"
+    exit 1
+fi
+# Apply resolution and force 165Hz
+wlr-randr --output \$(wlr-randr | grep -oP '^[A-Za-z0-9-]+') --mode "\$1x\$2@165" || xrandr --size "\$1x\$2" --rate 165
+echo "Resolution set to \$1x\$2 at 165Hz"
+EOF
+sudo chmod +x /usr/local/bin/set-res
+
+# --- Audio Integration ---
+sudo cp ./assets/boot_chime.wav /usr/share/sounds/
+sudo cp ./assets/exit_sound.wav /usr/share/sounds/
+echo "aplay /usr/share/sounds/boot_chime.wav &" >> ~/.config/autostart-scripts/boot.sh
+echo "alias shutdown='aplay /usr/share/sounds/exit_sound.wav && poweroff'" >> ~/.bashrc
+
+# --- Optimization Engine ---
+sudo cat <<EOF > /usr/local/bin/sys-opt
+#!/bin/bash
+echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+echo 3 | sudo tee /proc/sys/vm/drop_caches
+notify-send "SYSTEM" "PERFORMANCE MODE ACTIVE"
+EOF
+sudo chmod +x /usr/local/bin/sys-opt
+
+echo "INSTALLATION COMPLETE. Use 'set-res width height' to customize resolution."
