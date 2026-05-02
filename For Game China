@@ -1,0 +1,50 @@
+#!/bin/bash
+# KingFlow OS Deployment Script
+# Optimized for 4K 165Hz & Competitive Gaming
+# Target: Desktop / Tablet
+
+set -e
+
+# --- Branding & UI ---
+echo "Applying System Branding..."
+sudo cp ./assets/king_logo.svg /usr/share/plasma/look-and-feel/aero/contents/images/start.svg
+kwriteconfig6 --group "Mouse" --key "cursorTheme" "Enhanced_White"
+kwriteconfig6 --group "Mouse" --key "cursorSize" 64
+
+# --- Display & Custom Resolution Tool ---
+echo "Configuring 165Hz Fluid Motion..."
+kwriteconfig6 --file kwinrc --group "Compositing" --key "MaxFPS" 165
+kwriteconfig6 --file kwinrc --group "Compositing" --key "RefreshRate" 165
+
+# Manual Resolution Customizer
+sudo cat <<EOF > /usr/local/bin/set-res
+#!/bin/bash
+# Manual resolution adjustment tool
+if [ -z "\$1" ] || [ -z "\$2" ]; then
+    echo "Usage: set-res [width] [height]"
+    exit 1
+fi
+wlr-randr --output \$(wlr-randr | grep -oP '^[A-Za-z0-9-]+') --mode "\$1x\$2@165" || xrandr --size "\$1x\$2" --rate 165
+EOF
+sudo chmod +x /usr/local/bin/set-res
+
+# --- Audio & Sequence ---
+sudo cp ./assets/boot_chime.wav /usr/share/sounds/
+sudo cp ./assets/exit_sound.wav /usr/share/sounds/
+echo "aplay /usr/share/sounds/boot_chime.wav &" >> ~/.config/autostart-scripts/boot.sh
+echo "alias shutdown='aplay /usr/share/sounds/exit_sound.wav && poweroff'" >> ~/.bashrc
+
+# --- Game Space (King Mode) ---
+echo "Installing King Mode Optimization..."
+sudo cat <<EOF > /usr/local/bin/king-mode
+#!/bin/bash
+# Maximum resource allocation for HoK/Genshin
+echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+echo 3 | sudo tee /proc/sys/vm/drop_caches
+# Network priority for CN Servers
+sudo sysctl -w net.ipv4.tcp_congestion_control=bbr
+notify-send "KING MODE" "SYSTEM OPTIMIZED FOR COMPETITIVE PLAY"
+EOF
+sudo chmod +x /usr/local/bin/king-mode
+
+echo "DEPLOYMENT COMPLETE. Use 'king-mode' to start gaming."
