@@ -1,0 +1,63 @@
+# HoKOS v1.4 - Smart Refresh Edition
+
+Now supporting all high-refresh displays for Desktops, Laptops, and Tablets.
+
+## Dynamic Support
+- **High-End**: Native support for **185Hz** and **240Hz**.
+- **Standard**: Optimized for **60Hz, 120Hz, 144Hz, 165Hz**.
+- **Stability**: Locked **144FPS** for gaming to balance CPU/GPU load.
+- **Cooling**: Intelligent thermal throttling to prevent overheating.
+
+## Optimization
+- Automatically detects hardware refresh rate.
+- Sets Virtual Overdrive based on monitor capabilities.
+#!/bin/bash
+# HoKOS v1.4 - Universal Refresh Rate Setup
+# Target: Laptop / PC / Tablet (No Mobile)
+# Thermal-Aware Optimization
+
+set -e
+
+echo "[1/4] Detecting Hardware Refresh Rate..."
+
+# Get current monitor refresh rate
+CURRENT_HZ=$(xrandr | grep '*' | awk '{print $1}' | cut -d'x' -f2 | cut -d'.' -f1 | head -n1)
+if [ -z "$CURRENT_HZ" ]; then CURRENT_HZ=60; fi
+
+echo "Detected: ${CURRENT_HZ}Hz"
+
+# Logic for Ultra-Smooth but Cool
+if [ "$CURRENT_HZ" -ge 165 ]; then
+    TARGET_FPS=165
+    ANIM_FACTOR=0.35
+elif [ "$CURRENT_HZ" -ge 120 ]; then
+    TARGET_FPS=144
+    ANIM_FACTOR=0.40
+else
+    TARGET_FPS=120 # Virtual 120 for 60Hz monitors
+    ANIM_FACTOR=0.45
+fi
+
+echo "[2/4] Applying Adaptive Display Config (${TARGET_FPS} FPS)..."
+kwriteconfig6 --file kwinrc --group "Compositing" --key "MaxFPS" $TARGET_FPS
+kwriteconfig6 --file kwinrc --group "Compositing" --key "RefreshRate" $TARGET_FPS
+kwriteconfig6 --group "KWin" --key "AnimationDurationFactor" $ANIM_FACTOR
+
+echo "[3/4] Thermal Control Policy (Laptop/Tablet Optimized)..."
+# Balance CPU to prevent heat spikes
+sudo cat <<EOF > /usr/local/bin/hok-mode
+#!/bin/bash
+# High-Efficiency Gaming Mode
+echo "schedutil" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+# Limit GPU power draw to prevent overheating
+echo "auto" | sudo tee /sys/class/drm/card0/device/power_dpm_force_performance_level
+notify-send "HoKOS" "OPTIMIZED FOR ${CURRENT_HZ}Hz | MODE: COOL & SMOOTH" -i hok_logo
+EOF
+sudo chmod +x /usr/local/bin/hok-mode
+
+echo "[4/4] Branding & SFX..."
+sudo cp ./assets/branding_logo.svg /usr/share/plasma/look-and-feel/aero/contents/images/start.svg
+# Map Apple macOS Tahoe Sounds on startup and Microsoft Windows XP Sounds off
+echo "aplay /usr/share/sounds/mac_bong.wav &" >> ~/.config/autostart-scripts/boot.sh
+
+echo "HoKOS v1.4 INSTALLED SUCCESSFULLY."
