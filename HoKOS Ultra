@@ -1,0 +1,56 @@
+/**
+ * hokos_main_init - Điểm vào của hệ điều hành HoKOS.
+ */
+void hokos_main_init() {
+    /* BƯỚC 1: HIỂN THỊ LOGO HOK & PHÁT TIẾNG MACOS */
+    // Chạy đa luồng (Multi-threading) 64-bit để không bị trễ
+    thread_create(render_hok_startup_logo);
+    thread_create(play_startup_sound);
+
+    /* BƯỚC 2: NHẬN DIỆN "ĐÁM" THIẾT BỊ ĐANG CẮM (iPhone, iPad, Android...) */
+    // Tự động nhận diện iPhone 11 trở xuống và các dòng Android/Windows
+    scan_universal_hub_devices();
+
+    /* BƯỚC 3: THIẾT LẬP CHẾ ĐỘ "ÍT WATT - NHIỀU NHÂN" */
+    // Nếu máy đang dùng pin, kích hoạt Eco-Gaming Mode tự động
+    if (is_on_battery()) {
+        activate_eco_mode_64bit(); // Tiết kiệm điện, bền pin
+    } else {
+        activate_game_turbo_pro_plus(); // Cắm sạc -> Max 4K 120FPS
+    }
+
+    /* BƯỚC 4: VÀO GIAO DIỆN DESKTOP AERO GLASS */
+    launch_hokos_desktop();
+}
+/**
+ * power_distribution_pro_plus - Điều phối điện năng thông minh.
+ * Đảm bảo ăn ít Watt (W) nhất nhưng hiệu năng Game vẫn đạt 120FPS.
+ */
+void power_distribution_pro_plus() {
+    float total_w = get_current_wattage(); // Đo chuẩn W, V, A
+
+    /* Nếu đang đồng bộ "nguyên đám" thiết bị:
+     * - Dồn tác vụ đồng bộ vào nhân E-Core (Tiết kiệm điện).
+     * - Dồn tác vụ Game (Genshin, HOK, Star Rail) vào P-Core (Hiệu năng).
+     */
+    if (is_syncing_active()) {
+        limit_cpu_tdp(25); // Giới hạn mức tiêu thụ 25W cho toàn hệ thống
+        apply_undervolt_64bit(-60); // Giảm điện áp để máy mát như Apple
+    }
+
+    /* Hiển thị thông số 64-bit trên HUD Aero Glass */
+    render_power_hud(total_w);
+}
+/**
+ * hokos_shutdown_sequence - Quy trình tắt máy an toàn.
+ */
+void hokos_shutdown_sequence() {
+    printf("[HoKOS]: Đang lưu trữ dữ liệu đồng bộ an toàn...\n");
+    
+    /* Phát tiếng Microsoft Windows XP khi tắt máy */
+    play_audio_resource(WIN_XP_SHUTDOWN_ID);
+
+    /* Dọn dẹp RAM 64-bit và đóng các kết nối iPhone/Android/Windows */
+    clear_system_cache();
+    power_off_hardware();
+}
