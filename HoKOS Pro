@@ -1,0 +1,73 @@
+/* 
+ * PROJECT: HoKOS (64-bit Native)
+ * MODULE: BOOT_GRAPHICS_ENGINE
+ * DESC: Hiển thị Logo Honor of Kings Aero Glass & macOS Chime.
+ */
+
+#include "hokos_kernel.h"
+#include <vulkan/vulkan.h> // Sử dụng Vulkan để render logo cực mượt
+
+/**
+ * render_hok_startup_logo - Chịu trách nhiệm vẽ Logo HoK.
+ * Tối ưu hóa: Nạp trực tiếp từ phân vùng bảo mật vào VRAM.
+ */
+void render_hok_startup_logo() {
+    /* 
+     * 1. Cấu hình Framebuffer 64-bit:
+     * Tự động nhận diện độ phân giải từ 144p đến 4K tùy theo màn hình máy.
+     */
+    uint64_t screen_width = get_hardware_width();
+    uint64_t screen_height = get_hardware_height();
+
+    /* 2. Hiệu ứng Aero Glass cho Logo:
+     * Vẽ lớp kính mờ bao quanh logo Honor of Kings.
+     * Sử dụng thuật toán Gaussian Blur 64-bit để máy yếu vẫn mượt.
+     */
+    apply_aero_filter_to_logo(HOK_LOGO_RESOURCE_ID);
+
+    /* 3. Animation HarmonyOS NEXT 6:
+     * Logo HoK sẽ hiện lên theo kiểu "lò xo" (Elastic Bounce).
+     * Tạo cảm giác sang trọng và cao cấp ngay từ giây đầu tiên.
+     */
+    for (float t = 0; t <= 1.0f; t += 0.01f) {
+        float scale = compute_elastic_scale(t); // Hàm toán học Bezier đã viết
+        draw_image_to_center("honor_of_kings_logo.png", scale);
+        refresh_display_buffer();
+    }
+}
+
+/**
+ * play_startup_sound - Phát tiếng macOS Chime.
+ * Bảo mật: Chỉ phát khi hệ thống xác thực phần cứng an toàn (Apple-grade).
+ */
+void play_startup_sound() {
+    /* Truy cập trực tiếp driver âm thanh 64-bit */
+    if (check_hardware_integrity() == INTEGRITY_OK) {
+        // Phát tiếng macOS Chime ở định dạng Lossless 24-bit
+        stream_audio_to_output(RES_MACOS_CHIME_ID);
+    }
+}
+/**
+ * hokos_main_init - Điểm vào của hệ điều hành HoKOS.
+ */
+void hokos_main_init() {
+    /* BƯỚC 1: HIỂN THỊ LOGO HOK & PHÁT TIẾNG MACOS */
+    // Chạy đa luồng (Multi-threading) 64-bit để không bị trễ
+    thread_create(render_hok_startup_logo);
+    thread_create(play_startup_sound);
+
+    /* BƯỚC 2: NHẬN DIỆN "ĐÁM" THIẾT BỊ ĐANG CẮM (iPhone, iPad, Android...) */
+    // Tự động nhận diện iPhone 11 trở xuống và các dòng Android/Windows
+    scan_universal_hub_devices();
+
+    /* BƯỚC 3: THIẾT LẬP CHẾ ĐỘ "ÍT WATT - NHIỀU NHÂN" */
+    // Nếu máy đang dùng pin, kích hoạt Eco-Gaming Mode tự động
+    if (is_on_battery()) {
+        activate_eco_mode_64bit(); // Tiết kiệm điện, bền pin
+    } else {
+        activate_game_turbo_pro_plus(); // Cắm sạc -> Max 4K 120FPS
+    }
+
+    /* BƯỚC 4: VÀO GIAO DIỆN DESKTOP AERO GLASS */
+    launch_hokos_desktop();
+}
