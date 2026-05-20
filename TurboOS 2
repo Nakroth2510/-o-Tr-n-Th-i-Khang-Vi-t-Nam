@@ -1,0 +1,101 @@
+UI_SYSTEM HoKOS_UI {
+
+    WINDOW_MANAGER Win7_Aero_LiquidGlass {
+
+        TASKBAR {
+
+            STYLE = "Windows7 + LiquidGlass";
+
+            START_BUTTON = ICON("HOK_LOGO");
+
+            CLOCK {
+                format = "24H / 12H / LOCALIZED";
+                languages = [JP, CN, VN, EN];
+            }
+
+            TASK_ITEMS = dynamic_pinned_apps();
+        }
+
+        ANIMATION_ENGINE {
+
+            BOOT_ANIMATION = HyperOS3_FluidStart();
+
+            UI_MOTION_STYLE = HarmonyOS6_NEXT;
+
+            TRANSITION = BezierElastic(0.25, 0.1, 0.25, 1.0);
+        }
+
+    }
+
+    GAME_SPACE {
+
+        MODES {
+
+            BALANCED {
+                fps_cap = 30;
+                power_mode = "stable";
+            }
+
+            ECO {
+                fps_cap = 45;
+                battery_save = true;
+            }
+
+            TURBO {
+                fps_range = 60..144;
+                gpu_priority = MAX;
+                cpu_priority = MAX;
+            }
+        }
+
+        GPU_SUPPORT = ALL_GPU_EXCEPT("Intel");
+
+        CPU_SUPPORT = ["AMD", "Snapdragon"];
+    }
+
+    POWER_UI {
+
+        DISPLAY_METRICS = ["W", "V", "A"];
+
+        CHARGING_EFFECT = "OriginOS6_LiquidCharge";
+
+        OVERLAY_MODE = FLOATING_GLASS_PANEL;
+    }
+
+    SECURITY_UI {
+
+        FLOW = [
+            "PASSWORD",
+            "FACE_ID",
+            "TOUCH_ID"
+        ];
+
+        MODE = "STRICT + SANDBOX_LOCK";
+    }
+
+    DISPLAY_ENGINE {
+
+        BIT_DEPTH = 64;
+
+        RESOLUTION = "DYNAMIC_CUSTOM";
+
+        FPS_BOOST = ENABLED;
+    }
+
+    DEVICE_SYNC {
+
+        IPHONE_SUPPORT = "iOS6+";
+
+        BLOCK = ["JAILBROKEN_DEVICES"];
+    }
+
+    COOLING_UI {
+
+        MODES = {
+            STUDY: "silent",
+            WORK: "balanced",
+            GAME: "fan_ramp_up"
+        };
+    }
+
+}
