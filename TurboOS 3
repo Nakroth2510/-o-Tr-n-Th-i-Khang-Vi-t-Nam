@@ -1,0 +1,111 @@
+PROJECT: HoKOS UI DESIGN
+TYPE: User Interface Concept
+
+--------------------------------------------------
+1. BOOT SCREEN UI
+--------------------------------------------------
+- Hiển thị logo: HONOR OF KINGS
+- Hiệu ứng:
+  + Fade In (HyperOS style)
+  + Glow nhẹ (neon pulse)
+  + Zoom-in mềm
+
+- Chuyển sang Desktop:
+  + Animation: HarmonyOS NEXT fluid transition
+  + Smooth blur fade
+
+--------------------------------------------------
+2. DESKTOP INTERFACE
+--------------------------------------------------
+STYLE:
+- Windows 7 Taskbar layout
+- Kết hợp Liquid Glass (blur + phản chiếu nhẹ)
+
+--------------------------------------------------
+3. TASKBAR DESIGN
+--------------------------------------------------
+LEFT:
+- START BUTTON = ICON "HOK LOGO"
+- Click → mở Start Menu UI
+
+CENTER:
+- App icons (pin / running apps)
+
+RIGHT SIDE:
+- Clock (real-time)
+- Language switch:
+  + Vietnamese (VI)
+  + English (EN)
+  + Japanese (JP)
+  + Chinese (CN)
+
+- System tray icons:
+  + WiFi
+  + Sound
+  + Battery
+
+--------------------------------------------------
+4. WINDOW ANIMATION SYSTEM
+--------------------------------------------------
+- Open window: HyperOS 3 style (smooth + bounce nhẹ)
+- Close window: fade scale out
+- Hover effect: glass wave animation
+- Drag window: inertia physics nhẹ
+
+--------------------------------------------------
+5. GAME SPACE UI
+--------------------------------------------------
+FEATURE: Gaming Control Panel
+
+MODES:
+
+(1) Balanced Mode
+- FPS cap: 30
+- Stable performance
+
+(2) Battery Saver Mode
+- FPS cap: 45
+- Giảm tiêu thụ pin
+
+(3) Gamer Mode
+- FPS: 60 → 144 dynamic
+- Hiệu năng tối đa
+
+UI STYLE:
+- Neon accent + dark glass panel
+
+--------------------------------------------------
+6. CHARGING UI OVERLAY
+--------------------------------------------------
+- Hiển thị:
+  + Watt (W)
+  + Volt (V)
+  + Ampere (A)
+
+- Animation:
+  + Liquid charge effect (OriginOS style)
+  + Flowing energy bar
+
+--------------------------------------------------
+7. SECURITY UI FLOW
+--------------------------------------------------
+LOGIN SEQUENCE:
+1. Password screen
+2. Face ID animation
+3. Touch ID confirmation
+
+STYLE:
+- Glass pop-up UI
+- Blur background lock screen
+
+--------------------------------------------------
+8. DISPLAY & VISUAL STYLE
+--------------------------------------------------
+- Glass blur system (Aero-like)
+- Smooth gradients
+- Soft shadows
+- Rounded corners UI
+- High refresh animation feel
+
+--------------------------------------------------
+END OF UI DESIGN DOCUMENT
