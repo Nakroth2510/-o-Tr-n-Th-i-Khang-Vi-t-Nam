@@ -60,11 +60,11 @@ FEATURE: Gaming Control Panel
 MODES:
 
 (1) Balanced Mode
-- FPS cap: 30
+- FPS cap: 120
 - Stable performance
 
 (2) Battery Saver Mode
-- FPS cap: 45
+- FPS cap: 60
 - Giảm tiêu thụ pin
 
 (3) Gamer Mode
