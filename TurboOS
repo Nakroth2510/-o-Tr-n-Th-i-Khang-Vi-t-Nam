@@ -16,7 +16,7 @@ void kernel_boot() {
     );
 
     hardware_detect({
-        cpu: AMD | Snapdragon,
+        cpu: AMD | Snapdragon,Dimensity
         gpu: ALL_EXCEPT_INTEL,
         ram_min: 4GB,
         tpm: 2.0
