@@ -1,4 +1,4 @@
-UI_SYSTEM HoKOS_UI {
+UI_SYSTEM HoKUI {
 
     WINDOW_MANAGER Win7_Aero_LiquidGlass {
 
@@ -32,25 +32,25 @@ UI_SYSTEM HoKOS_UI {
         MODES {
 
             BALANCED {
-                fps_cap = 30;
+                fps_cap = 120;
                 power_mode = "stable";
             }
 
             ECO {
-                fps_cap = 45;
+                fps_cap = 55;
                 battery_save = true;
             }
 
             TURBO {
                 fps_range = 60..144;
-                gpu_priority = MAX;
+                gpu_priority = ULTRA;
                 cpu_priority = MAX;
             }
         }
 
         GPU_SUPPORT = ALL_GPU_EXCEPT("Intel");
 
-        CPU_SUPPORT = ["AMD", "Snapdragon"];
+        CPU_SUPPORT = ["AMD", "Snapdragon",Dimensity(MediaTek)];
     }
 
     POWER_UI {
@@ -84,7 +84,7 @@ UI_SYSTEM HoKOS_UI {
 
     DEVICE_SYNC {
 
-        IPHONE_SUPPORT = "iOS6+";
+        IPHONE_SUPPORT = "iPhone6+";
 
         BLOCK = ["JAILBROKEN_DEVICES"];
     }
