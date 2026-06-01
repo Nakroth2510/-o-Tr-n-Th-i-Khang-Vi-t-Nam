@@ -1,0 +1,25 @@
+  Hyper Public Permit
+ 
+                         Copyright (C) 2026 Đào Trần Thái Khang. All Rights Reserved.
+
+By using, modifying, or distributing this software, you agree to be bound by the following terms and conditions:
+
+1. PROHIBITED USES, PLATFORMS & DEMOS
+- You are strictly prohibited from installing, running, or utilizing this software (or any part of it) on Apple macOS / iOS platforms. 
+- You are prohibited from selling the original, unmodified source code or binaries of this software.
+- You are strictly prohibited from hosting, deploying, or publishing this software on any web server, cloud platform, or website as a public live demo, preview, or online presentation.
+
+2. MODIFICATIONS & DERIVATIVE WORKS
+- You are permitted to modify the source code and create derivative works.
+- If you modify the code, you have the right to mark, tag, or sign your own name on your specific contributions or modified parts to indicate ownership of your changes.
+
+3. COMMERCIAL USE & DISTRIBUTION
+- International and worldwide commercial use of this software is permitted, provided that the product being sold is a modified version (derivative work) created by you, not the original version.
+
+4. ATTRIBUTION & AUTHORSHIP
+- You must maintain and prominently display the original author's copyright notice and authorship attribution in all copies or substantial portions of the software. You are strictly prohibited from changing, removing, or replacing the name of the original author.
+
+5. DISCLAIMER OF WARRANTY
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY.
+
+Hyper.Inc
